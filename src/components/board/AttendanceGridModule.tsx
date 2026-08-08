@@ -1,6 +1,6 @@
 // src/components/board/AttendanceGridModule.tsx
 import React, { useState } from 'react';
-import { UserCheck, UserX, Clock, ShieldAlert, CheckCircle2, Search, Sparkles, Filter } from 'lucide-react';
+import { UserCheck, UserX, Clock, ShieldAlert, CheckCircle2, Search } from 'lucide-react';
 import { useClassStore } from '../../store/useClassStore';
 import { AttendanceStatus } from '../../types';
 
@@ -18,41 +18,41 @@ export const AttendanceGridModule: React.FC = () => {
   const presentPercentage = Math.round((attendance.presentCount / attendance.totalStudents) * 100);
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-200">
+    <div className="space-y-6 animate-in fade-in duration-200 text-slate-800">
       {/* Attendance Analytics Top Bar */}
-      <div className="p-6 rounded-3xl glass-panel border border-white/10 flex flex-col lg:flex-row items-center justify-between gap-6">
+      <div className="p-6 rounded-3xl glass-panel border border-slate-200 bg-white flex flex-col lg:flex-row items-center justify-between gap-6 shadow-sm">
         {/* Metric Cards */}
         <div className="flex flex-wrap items-center gap-4 w-full lg:w-auto">
-          <div className="flex-1 min-w-[130px] p-4 rounded-2xl glass-card border border-emerald-500/30 text-center">
-            <span className="text-[10px] uppercase font-bold text-emerald-400 tracking-wider">Present</span>
-            <p className="font-display font-extrabold text-2xl text-emerald-300">{attendance.presentCount}</p>
+          <div className="flex-1 min-w-[130px] p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center">
+            <span className="text-[10px] uppercase font-extrabold text-emerald-800 tracking-wider">Present</span>
+            <p className="font-display font-extrabold text-2xl text-emerald-900">{attendance.presentCount}</p>
           </div>
 
-          <div className="flex-1 min-w-[130px] p-4 rounded-2xl glass-card border border-rose-500/30 text-center">
-            <span className="text-[10px] uppercase font-bold text-rose-400 tracking-wider">Absent</span>
-            <p className="font-display font-extrabold text-2xl text-rose-300">{attendance.absentCount}</p>
+          <div className="flex-1 min-w-[130px] p-4 rounded-2xl bg-rose-50 border border-rose-200 text-center">
+            <span className="text-[10px] uppercase font-extrabold text-rose-800 tracking-wider">Absent</span>
+            <p className="font-display font-extrabold text-2xl text-rose-900">{attendance.absentCount}</p>
           </div>
 
-          <div className="flex-1 min-w-[130px] p-4 rounded-2xl glass-card border border-amber-500/30 text-center">
-            <span className="text-[10px] uppercase font-bold text-amber-400 tracking-wider">Late</span>
-            <p className="font-display font-extrabold text-2xl text-amber-300">{attendance.lateCount}</p>
+          <div className="flex-1 min-w-[130px] p-4 rounded-2xl bg-amber-50 border border-amber-200 text-center">
+            <span className="text-[10px] uppercase font-extrabold text-amber-800 tracking-wider">Late</span>
+            <p className="font-display font-extrabold text-2xl text-amber-900">{attendance.lateCount}</p>
           </div>
 
-          <div className="flex-1 min-w-[130px] p-4 rounded-2xl glass-card border border-cyan-500/30 text-center">
-            <span className="text-[10px] uppercase font-bold text-cyan-400 tracking-wider">Excused</span>
-            <p className="font-display font-extrabold text-2xl text-cyan-300">{attendance.excusedCount}</p>
+          <div className="flex-1 min-w-[130px] p-4 rounded-2xl bg-sky-50 border border-sky-200 text-center">
+            <span className="text-[10px] uppercase font-extrabold text-sky-800 tracking-wider">Excused</span>
+            <p className="font-display font-extrabold text-2xl text-sky-900">{attendance.excusedCount}</p>
           </div>
         </div>
 
         {/* Attendance Rate Progress Gauge */}
-        <div className="w-full lg:w-72 p-4 rounded-2xl glass-card border border-white/10 space-y-2">
-          <div className="flex justify-between text-xs font-semibold">
-            <span className="text-slate-300">Class Attendance Rate</span>
-            <span className="text-cyan-400 font-bold">{presentPercentage}%</span>
+        <div className="w-full lg:w-72 p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+          <div className="flex justify-between text-xs font-bold">
+            <span className="text-slate-700">Class Attendance Rate</span>
+            <span className="text-indigo-600 font-bold">{presentPercentage}%</span>
           </div>
-          <div className="w-full h-3 rounded-full bg-white/10 overflow-hidden">
+          <div className="w-full h-3 rounded-full bg-slate-200 overflow-hidden">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-emerald-400 transition-all duration-500"
+              className="h-full rounded-full bg-gradient-to-r from-indigo-600 to-emerald-500 transition-all duration-500"
               style={{ width: `${presentPercentage}%` }}
             />
           </div>
@@ -62,7 +62,7 @@ export const AttendanceGridModule: React.FC = () => {
         <div className="flex items-center gap-3 w-full lg:w-auto justify-end">
           <button
             onClick={() => bulkMarkAttendance('present')}
-            className="flex items-center gap-2 px-4 py-3 rounded-2xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30 font-semibold text-xs transition touch-target"
+            className="flex items-center gap-2 px-4 py-3 rounded-2xl bg-emerald-600 text-white hover:bg-emerald-700 font-bold text-xs transition touch-target shadow-sm"
           >
             <CheckCircle2 className="w-4 h-4" /> Mark All Present
           </button>
@@ -78,7 +78,7 @@ export const AttendanceGridModule: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search student name or roll #..."
-            className="w-full pl-12 pr-4 py-3 rounded-2xl glass-card border border-white/10 text-white placeholder-slate-400 outline-none focus:border-cyan-500/50 text-sm font-medium"
+            className="w-full pl-12 pr-4 py-3 rounded-2xl glass-card border border-slate-200 text-slate-900 placeholder-slate-400 outline-none focus:border-indigo-500 text-sm font-medium bg-white"
           />
         </div>
 
@@ -90,8 +90,8 @@ export const AttendanceGridModule: React.FC = () => {
               onClick={() => setStatusFilter(filter)}
               className={`px-4 py-2 rounded-2xl text-xs font-bold uppercase transition touch-target ${
                 statusFilter === filter
-                  ? 'bg-cyan-500 text-white shadow-neon-blue'
-                  : 'glass-card border border-white/10 text-slate-300 hover:text-white'
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : 'glass-card border border-slate-200 text-slate-700 hover:text-slate-900 bg-white'
               }`}
             >
               {filter}
@@ -100,23 +100,23 @@ export const AttendanceGridModule: React.FC = () => {
         </div>
       </div>
 
-      {/* Touch-Friendly Student Grid (designed for Smart Board fingers/stylus) */}
+      {/* Touch-Friendly Student Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
         {filteredStudents.map((student) => (
           <div
             key={student.id}
-            className={`p-4 rounded-3xl glass-card border transition-all duration-200 flex flex-col items-center text-center relative ${
+            className={`p-4 rounded-3xl glass-card border transition-all duration-200 flex flex-col items-center text-center relative bg-white ${
               student.status === 'present'
-                ? 'border-emerald-500/40 bg-emerald-950/20'
+                ? 'border-emerald-300 bg-emerald-50/40'
                 : student.status === 'absent'
-                ? 'border-rose-500/40 bg-rose-950/20'
+                ? 'border-rose-300 bg-rose-50/40'
                 : student.status === 'late'
-                ? 'border-amber-500/40 bg-amber-950/20'
-                : 'border-cyan-500/40 bg-cyan-950/20'
+                ? 'border-amber-300 bg-amber-50/40'
+                : 'border-sky-300 bg-sky-50/40'
             }`}
           >
             {/* Roll Number Badge */}
-            <span className="absolute top-3 left-3 px-2 py-0.5 rounded-lg bg-black/40 text-slate-300 text-[10px] font-mono font-bold">
+            <span className="absolute top-3 left-3 px-2 py-0.5 rounded-lg bg-slate-100 border border-slate-200 text-slate-700 text-[10px] font-mono font-bold">
               #{student.rollNumber}
             </span>
 
@@ -124,20 +124,20 @@ export const AttendanceGridModule: React.FC = () => {
             <img
               src={student.avatar}
               alt={student.name}
-              className="w-16 h-16 rounded-2xl object-cover border-2 border-white/20 my-2 shadow-lg"
+              className="w-16 h-16 rounded-2xl object-cover border-2 border-slate-200 my-2 shadow-sm"
             />
 
-            <h4 className="font-bold text-sm text-white truncate w-full">{student.name}</h4>
-            <p className="text-[11px] text-slate-400 mb-3 uppercase font-semibold">{student.status}</p>
+            <h4 className="font-bold text-sm text-slate-900 truncate w-full">{student.name}</h4>
+            <p className="text-[11px] text-slate-500 mb-3 uppercase font-extrabold">{student.status}</p>
 
             {/* 4 Status Toggle Touch Buttons */}
-            <div className="grid grid-cols-4 gap-1 w-full pt-2 border-t border-white/10">
+            <div className="grid grid-cols-4 gap-1 w-full pt-2 border-t border-slate-200">
               <button
                 onClick={() => updateStudentAttendance(student.id, 'present')}
                 className={`py-2 rounded-xl flex items-center justify-center transition touch-target ${
                   student.status === 'present'
-                    ? 'bg-emerald-500 text-white font-bold'
-                    : 'bg-white/5 text-slate-400 hover:bg-emerald-500/20 hover:text-emerald-300'
+                    ? 'bg-emerald-600 text-white font-bold'
+                    : 'bg-slate-100 text-slate-500 hover:bg-emerald-100 hover:text-emerald-800'
                 }`}
                 title="Present"
               >
@@ -148,8 +148,8 @@ export const AttendanceGridModule: React.FC = () => {
                 onClick={() => updateStudentAttendance(student.id, 'absent')}
                 className={`py-2 rounded-xl flex items-center justify-center transition touch-target ${
                   student.status === 'absent'
-                    ? 'bg-rose-500 text-white font-bold'
-                    : 'bg-white/5 text-slate-400 hover:bg-rose-500/20 hover:text-rose-300'
+                    ? 'bg-rose-600 text-white font-bold'
+                    : 'bg-slate-100 text-slate-500 hover:bg-rose-100 hover:text-rose-800'
                 }`}
                 title="Absent"
               >
@@ -160,8 +160,8 @@ export const AttendanceGridModule: React.FC = () => {
                 onClick={() => updateStudentAttendance(student.id, 'late')}
                 className={`py-2 rounded-xl flex items-center justify-center transition touch-target ${
                   student.status === 'late'
-                    ? 'bg-amber-500 text-white font-bold'
-                    : 'bg-white/5 text-slate-400 hover:bg-amber-500/20 hover:text-amber-300'
+                    ? 'bg-amber-600 text-white font-bold'
+                    : 'bg-slate-100 text-slate-500 hover:bg-amber-100 hover:text-amber-800'
                 }`}
                 title="Late"
               >
@@ -172,8 +172,8 @@ export const AttendanceGridModule: React.FC = () => {
                 onClick={() => updateStudentAttendance(student.id, 'excused')}
                 className={`py-2 rounded-xl flex items-center justify-center transition touch-target ${
                   student.status === 'excused'
-                    ? 'bg-cyan-500 text-white font-bold'
-                    : 'bg-white/5 text-slate-400 hover:bg-cyan-500/20 hover:text-cyan-300'
+                    ? 'bg-sky-600 text-white font-bold'
+                    : 'bg-slate-100 text-slate-500 hover:bg-sky-100 hover:text-sky-800'
                 }`}
                 title="Excused"
               >

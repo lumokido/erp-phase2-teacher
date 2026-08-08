@@ -12,11 +12,6 @@ import {
   Trash2,
   Undo,
   Download,
-  Grid,
-  Plus,
-  Sparkles,
-  Layers,
-  Palette
 } from 'lucide-react';
 import { useWhiteboardStore, WhiteboardTool, GridBackground } from '../../store/useWhiteboardStore';
 
@@ -44,12 +39,12 @@ export const WhiteboardCanvas: React.FC = () => {
   } = useWhiteboardStore();
 
   const colorPalette = [
-    '#38bdf8', // Neon Cyan
-    '#facc15', // Neon Yellow
-    '#4ade80', // Neon Emerald
-    '#f43f5e', // Neon Rose
-    '#c084fc', // Neon Purple
-    '#ffffff', // Pure White
+    '#4f46e5', // Deep Indigo
+    '#0284c7', // Sky Blue
+    '#059669', // Emerald
+    '#dc2626', // Rose Red
+    '#7c3aed', // Purple
+    '#0f172a', // Dark Slate
   ];
 
   // Initialize Canvas
@@ -151,15 +146,15 @@ export const WhiteboardCanvas: React.FC = () => {
     ctx.moveTo(pos.x, pos.y);
 
     if (currentTool === 'pen') {
-      ctx.strokeStyle = strokeColor;
+      ctx.strokeStyle = strokeColor === '#ffffff' ? '#4f46e5' : strokeColor;
       ctx.lineWidth = strokeWidth;
       ctx.globalAlpha = 1.0;
     } else if (currentTool === 'highlighter') {
-      ctx.strokeStyle = strokeColor;
+      ctx.strokeStyle = strokeColor === '#ffffff' ? '#facc15' : strokeColor;
       ctx.lineWidth = strokeWidth * 4;
       ctx.globalAlpha = 0.35;
     } else if (currentTool === 'eraser') {
-      ctx.strokeStyle = '#090d16'; // Erase with background color
+      ctx.strokeStyle = '#f8fafc'; // Erase with light background color
       ctx.lineWidth = strokeWidth * 5;
       ctx.globalAlpha = 1.0;
     }
@@ -192,7 +187,7 @@ export const WhiteboardCanvas: React.FC = () => {
 
     // Draw Shapes if shape tool active
     if (currentTool === 'line' || currentTool === 'rectangle' || currentTool === 'circle' || currentTool === 'arrow') {
-      ctx.strokeStyle = strokeColor;
+      ctx.strokeStyle = strokeColor === '#ffffff' ? '#4f46e5' : strokeColor;
       ctx.lineWidth = strokeWidth;
       ctx.globalAlpha = 1.0;
       ctx.beginPath();
@@ -236,7 +231,7 @@ export const WhiteboardCanvas: React.FC = () => {
 
     // Create download link
     const link = document.createElement('a');
-    link.download = `Whiteboard_Faraday_Notes_${Date.now()}.png`;
+    link.download = `Whiteboard_Notes_${Date.now()}.png`;
     link.href = dataUrl;
     link.click();
   };
@@ -244,22 +239,22 @@ export const WhiteboardCanvas: React.FC = () => {
   const getBackgroundPatternClass = () => {
     switch (gridBackground) {
       case 'grid':
-        return 'bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:32px_32px]';
+        return 'bg-[linear-gradient(to_right,#0000000a_1px,transparent_1px),linear-gradient(to_bottom,#0000000a_1px,transparent_1px)] bg-[size:32px_32px]';
       case 'ruled':
-        return 'bg-[linear-gradient(to_bottom,#ffffff12_1px,transparent_1px)] bg-[size:100%_36px]';
+        return 'bg-[linear-gradient(to_bottom,#00000010_1px,transparent_1px)] bg-[size:100%_36px]';
       case 'dots':
-        return 'bg-[radial-gradient(#ffffff15_1px,transparent_1px)] [background-size:24px_24px]';
+        return 'bg-[radial-gradient(#00000015_1px,transparent_1px)] [background-size:24px_24px]';
       default:
         return '';
     }
   };
 
   return (
-    <div className="relative w-full h-[calc(100vh-10rem)] rounded-3xl glass-panel border border-cyan-500/30 overflow-hidden flex flex-col">
+    <div className="relative w-full h-[calc(100vh-10rem)] rounded-3xl glass-panel border border-slate-200 overflow-hidden flex flex-col bg-white">
       {/* Floating Smart Board Toolbar */}
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5 p-2.5 rounded-3xl glass-panel border-2 border-cyan-500/40 shadow-neon-blue backdrop-blur-2xl">
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5 p-2 rounded-3xl glass-panel border border-slate-200 shadow-lg backdrop-blur-2xl bg-white/95 text-slate-800">
         {/* Tool Selectors */}
-        <div className="flex items-center gap-1.5 pr-2 border-r border-white/10">
+        <div className="flex items-center gap-1 pr-2 border-r border-slate-200">
           {[
             { id: 'pen', icon: Pencil, label: 'Pen' },
             { id: 'highlighter', icon: Highlighter, label: 'Highlighter' },
@@ -271,10 +266,10 @@ export const WhiteboardCanvas: React.FC = () => {
               <button
                 key={t.id}
                 onClick={() => setTool(t.id as WhiteboardTool)}
-                className={`flex items-center gap-2 px-3 py-2 rounded-2xl transition font-semibold text-xs touch-target ${
+                className={`flex items-center gap-2 px-3 py-2 rounded-2xl transition font-bold text-xs touch-target ${
                   active
-                    ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-neon-blue'
-                    : 'text-slate-300 hover:bg-white/10 hover:text-white'
+                    ? 'bg-gradient-to-r from-indigo-600 to-sky-600 text-white shadow-sm'
+                    : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
                 }`}
                 title={t.label}
               >
@@ -286,7 +281,7 @@ export const WhiteboardCanvas: React.FC = () => {
         </div>
 
         {/* Shapes Menu */}
-        <div className="flex items-center gap-1 pr-2 border-r border-white/10">
+        <div className="flex items-center gap-1 pr-2 border-r border-slate-200">
           {[
             { id: 'line', icon: Minus, label: 'Line' },
             { id: 'rectangle', icon: Square, label: 'Rectangle' },
@@ -300,7 +295,7 @@ export const WhiteboardCanvas: React.FC = () => {
                 key={s.id}
                 onClick={() => setTool(s.id as WhiteboardTool)}
                 className={`w-9 h-9 rounded-xl flex items-center justify-center transition ${
-                  active ? 'bg-cyan-500/30 text-cyan-300 border border-cyan-400' : 'text-slate-400 hover:bg-white/10'
+                  active ? 'bg-indigo-100 text-indigo-700 border border-indigo-300 font-bold' : 'text-slate-500 hover:bg-slate-100'
                 }`}
                 title={s.label}
               >
@@ -311,13 +306,13 @@ export const WhiteboardCanvas: React.FC = () => {
         </div>
 
         {/* Color Palette Buttons */}
-        <div className="flex items-center gap-1.5 pr-2 border-r border-white/10">
+        <div className="flex items-center gap-1.5 pr-2 border-r border-slate-200">
           {colorPalette.map((color) => (
             <button
               key={color}
               onClick={() => setColor(color)}
               className={`w-7 h-7 rounded-full border-2 transition ${
-                strokeColor === color ? 'scale-125 border-white shadow-neon-cyan' : 'border-transparent hover:scale-110'
+                strokeColor === color ? 'scale-125 border-slate-900 shadow-sm' : 'border-transparent hover:scale-110'
               }`}
               style={{ backgroundColor: color }}
             />
@@ -325,25 +320,25 @@ export const WhiteboardCanvas: React.FC = () => {
         </div>
 
         {/* Stroke Thickness Picker */}
-        <div className="flex items-center gap-2 pr-2 border-r border-white/10 px-2">
+        <div className="flex items-center gap-2 pr-2 border-r border-slate-200 px-2">
           <input
             type="range"
             min="2"
             max="20"
             value={strokeWidth}
             onChange={(e) => setStrokeWidth(Number(e.target.value))}
-            className="w-20 accent-cyan-400 cursor-pointer"
+            className="w-20 accent-indigo-600 cursor-pointer"
             title="Stroke Size"
           />
-          <span className="text-[11px] font-mono text-cyan-300 font-bold">{strokeWidth}px</span>
+          <span className="text-[11px] font-mono text-indigo-700 font-bold">{strokeWidth}px</span>
         </div>
 
         {/* Add Sticky Note */}
         <button
           onClick={() => addStickyNote({ x: 150, y: 150, text: 'New Classroom Note...', color: 'yellow' })}
-          className="flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500/30 transition text-xs font-semibold"
+          className="flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-amber-100 text-amber-900 border border-amber-300 hover:bg-amber-200 transition text-xs font-bold"
         >
-          <StickyIcon className="w-4 h-4" /> Note
+          <StickyIcon className="w-4 h-4 text-amber-700" /> Note
         </button>
 
         {/* Grid Background Switcher */}
@@ -353,7 +348,7 @@ export const WhiteboardCanvas: React.FC = () => {
               key={g}
               onClick={() => setGridBackground(g)}
               className={`px-2 py-1 rounded-lg text-[10px] uppercase font-bold transition ${
-                gridBackground === g ? 'bg-cyan-500/30 text-cyan-300' : 'text-slate-400 hover:text-white'
+                gridBackground === g ? 'bg-indigo-100 text-indigo-800' : 'text-slate-500 hover:text-slate-900'
               }`}
             >
               {g}
@@ -362,11 +357,11 @@ export const WhiteboardCanvas: React.FC = () => {
         </div>
 
         {/* Canvas Actions */}
-        <div className="flex items-center gap-1.5 pl-2 border-l border-white/10">
+        <div className="flex items-center gap-1.5 pl-2 border-l border-slate-200">
           <button
             onClick={handleUndo}
             disabled={historyStep <= 0}
-            className="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 disabled:opacity-40 flex items-center justify-center text-slate-300"
+            className="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 disabled:opacity-40 flex items-center justify-center text-slate-700 font-bold"
             title="Undo"
           >
             <Undo className="w-4.5 h-4.5" />
@@ -374,7 +369,7 @@ export const WhiteboardCanvas: React.FC = () => {
 
           <button
             onClick={handleClear}
-            className="w-9 h-9 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 flex items-center justify-center transition"
+            className="w-9 h-9 rounded-xl bg-rose-100 hover:bg-rose-200 text-rose-700 flex items-center justify-center transition font-bold"
             title="Clear Board"
           >
             <Trash2 className="w-4.5 h-4.5" />
@@ -382,7 +377,7 @@ export const WhiteboardCanvas: React.FC = () => {
 
           <button
             onClick={handleExportPNG}
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/30 transition text-xs font-bold shadow-neon-emerald"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-emerald-100 text-emerald-800 border border-emerald-300 hover:bg-emerald-200 transition text-xs font-extrabold shadow-sm"
           >
             <Download className="w-4 h-4" /> Export
           </button>
@@ -390,7 +385,7 @@ export const WhiteboardCanvas: React.FC = () => {
       </div>
 
       {/* Main HTML5 Canvas Area */}
-      <div className={`relative flex-1 w-full h-full bg-dark-base ${getBackgroundPatternClass()}`}>
+      <div className={`relative flex-1 w-full h-full bg-slate-50 ${getBackgroundPatternClass()}`}>
         <canvas
           ref={canvasRef}
           onMouseDown={startDrawing}
@@ -409,15 +404,15 @@ export const WhiteboardCanvas: React.FC = () => {
             <div
               key={note.id}
               style={{ left: `${note.x}px`, top: `${note.y}px` }}
-              className="absolute pointer-events-auto w-60 p-4 rounded-2xl glass-card border border-amber-400/40 shadow-2xl bg-amber-950/40 animate-in zoom-in duration-150"
+              className="absolute pointer-events-auto w-60 p-4 rounded-2xl glass-card border border-amber-300 shadow-xl bg-amber-50 animate-in zoom-in duration-150"
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] uppercase font-bold text-amber-300 tracking-wider flex items-center gap-1">
-                  <StickyIcon className="w-3 h-3" /> Sticky Note
+                <span className="text-[10px] uppercase font-bold text-amber-800 tracking-wider flex items-center gap-1">
+                  <StickyIcon className="w-3 h-3 text-amber-700" /> Sticky Note
                 </span>
                 <button
                   onClick={() => deleteStickyNote(note.id)}
-                  className="text-amber-400/60 hover:text-amber-300"
+                  className="text-amber-700 hover:text-amber-900"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
@@ -425,7 +420,7 @@ export const WhiteboardCanvas: React.FC = () => {
               <textarea
                 value={note.text}
                 onChange={(e) => updateStickyNoteText(note.id, e.target.value)}
-                className="w-full h-24 bg-transparent text-amber-100 text-sm outline-none resize-none font-medium placeholder-amber-300/50"
+                className="w-full h-24 bg-transparent text-amber-950 text-sm outline-none resize-none font-medium placeholder-amber-700/50"
                 placeholder="Write lesson reminder..."
               />
             </div>

@@ -1,6 +1,6 @@
 // src/components/common/ShortcutsModal.tsx
 import React from 'react';
-import { X, Keyboard, Command, Zap } from 'lucide-react';
+import { X, Keyboard, Zap } from 'lucide-react';
 
 interface ShortcutsModalProps {
   isOpen: boolean;
@@ -36,21 +36,21 @@ export const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose 
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="w-full max-w-2xl rounded-3xl glass-panel border border-cyan-500/40 shadow-2xl overflow-hidden">
-        <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-md animate-in fade-in duration-200">
+      <div className="w-full max-w-2xl rounded-3xl glass-panel border border-slate-200 shadow-2xl overflow-hidden bg-white">
+        <div className="flex items-center justify-between px-6 py-5 border-b border-slate-100">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-cyan-400">
+            <div className="w-10 h-10 rounded-2xl bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
               <Keyboard className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="font-display font-bold text-lg text-white">Smart Board Keyboard Shortcuts</h3>
-              <p className="text-xs text-slate-400">Classroom gesture & keyboard controls reference</p>
+              <h3 className="font-display font-bold text-lg text-slate-900">Smart Board Keyboard Shortcuts</h3>
+              <p className="text-xs text-slate-500 font-medium">Classroom gesture & keyboard controls reference</p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white"
+            className="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-900 transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -59,21 +59,21 @@ export const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose 
         <div className="p-6 space-y-6 max-h-[70vh] overflow-y-auto custom-scrollbar">
           {shortcutGroups.map((group, gIdx) => (
             <div key={gIdx}>
-              <h4 className="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+              <h4 className="text-xs font-extrabold text-indigo-600 uppercase tracking-wider mb-3 flex items-center gap-2">
                 <Zap className="w-4 h-4" /> {group.title}
               </h4>
               <div className="space-y-2">
                 {group.items.map((item, iIdx) => (
                   <div
                     key={iIdx}
-                    className="flex items-center justify-between p-3.5 rounded-2xl glass-card border border-white/5 hover:border-white/20 transition"
+                    className="flex items-center justify-between p-3.5 rounded-2xl glass-card border border-slate-200 hover:border-indigo-300 transition"
                   >
-                    <span className="text-sm font-medium text-slate-200">{item.label}</span>
+                    <span className="text-sm font-semibold text-slate-800">{item.label}</span>
                     <div className="flex items-center gap-1.5">
                       {item.keys.map((k, kIdx) => (
                         <kbd
                           key={kIdx}
-                          className="px-2.5 py-1 text-xs font-mono font-bold bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 rounded-lg shadow-sm"
+                          className="px-2.5 py-1 text-xs font-mono font-bold bg-indigo-50 border border-indigo-200 text-indigo-700 rounded-lg shadow-sm"
                         >
                           {k}
                         </kbd>
@@ -86,7 +86,7 @@ export const ShortcutsModal: React.FC<ShortcutsModalProps> = ({ isOpen, onClose 
           ))}
         </div>
 
-        <div className="p-4 border-t border-white/10 text-center text-xs text-slate-400 bg-black/20">
+        <div className="p-4 border-t border-slate-100 text-center text-xs text-slate-500 bg-slate-50 font-medium">
           Tip: Tap any shortcut button on screen or use remote presenter keys on Windows Smart Board.
         </div>
       </div>

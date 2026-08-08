@@ -14,8 +14,6 @@ import {
   Timer,
   Info,
   StickyNote,
-  Sparkles,
-  Maximize2,
   Columns
 } from 'lucide-react';
 import { WhiteboardCanvas } from '../components/board/WhiteboardCanvas';
@@ -54,19 +52,19 @@ export const DigitalBoardPage: React.FC = () => {
   const { activeSlot } = useClassStore();
 
   const tabs: { id: BoardTab; label: string; icon: any; color: string }[] = [
-    { id: 'whiteboard', label: 'Whiteboard', icon: Presentation, color: 'text-cyan-400' },
-    { id: 'lesson', label: "Today's Lesson", icon: BookOpen, color: 'text-emerald-400' },
-    { id: 'attendance', label: 'Attendance', icon: UserCheck, color: 'text-amber-400' },
-    { id: 'recording', label: 'Recording', icon: Video, color: 'text-rose-400' },
-    { id: 'materials', label: 'Materials', icon: FolderOpen, color: 'text-purple-400' },
-    { id: 'worksheets', label: 'Worksheets', icon: FileSpreadsheet, color: 'text-indigo-400' },
-    { id: 'homework', label: 'Homework', icon: BookOpenCheck, color: 'text-emerald-400' },
-    { id: 'diary', label: 'Teacher Diary', icon: BookMarked, color: 'text-purple-400' },
-    { id: 'syllabus', label: 'Topics', icon: BarChart3, color: 'text-cyan-400' },
-    { id: 'announcements', label: 'Alerts', icon: Megaphone, color: 'text-rose-400' },
-    { id: 'timer', label: 'Class Timer', icon: Timer, color: 'text-purple-400' },
-    { id: 'subject', label: 'Subject Info', icon: Info, color: 'text-cyan-400' },
-    { id: 'notes', label: 'Quick Notes', icon: StickyNote, color: 'text-amber-400' },
+    { id: 'whiteboard', label: 'Whiteboard', icon: Presentation, color: 'text-indigo-600' },
+    { id: 'lesson', label: "Today's Lesson", icon: BookOpen, color: 'text-emerald-600' },
+    { id: 'attendance', label: 'Attendance', icon: UserCheck, color: 'text-amber-600' },
+    { id: 'recording', label: 'Recording', icon: Video, color: 'text-rose-600' },
+    { id: 'materials', label: 'Materials', icon: FolderOpen, color: 'text-purple-600' },
+    { id: 'worksheets', label: 'Worksheets', icon: FileSpreadsheet, color: 'text-sky-600' },
+    { id: 'homework', label: 'Homework', icon: BookOpenCheck, color: 'text-emerald-600' },
+    { id: 'diary', label: 'Teacher Diary', icon: BookMarked, color: 'text-purple-600' },
+    { id: 'syllabus', label: 'Topics', icon: BarChart3, color: 'text-indigo-600' },
+    { id: 'announcements', label: 'Alerts', icon: Megaphone, color: 'text-rose-600' },
+    { id: 'timer', label: 'Class Timer', icon: Timer, color: 'text-purple-600' },
+    { id: 'subject', label: 'Subject Info', icon: Info, color: 'text-sky-600' },
+    { id: 'notes', label: 'Quick Notes', icon: StickyNote, color: 'text-amber-600' },
   ];
 
   const renderModuleContent = (tab: BoardTab) => {
@@ -103,9 +101,9 @@ export const DigitalBoardPage: React.FC = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 space-y-4 h-[calc(100vh-5rem)] flex flex-col overflow-hidden">
+    <div className="p-4 sm:p-6 space-y-4 h-[calc(100vh-5rem)] flex flex-col overflow-hidden text-slate-800">
       {/* Top Touch Tabs Toolbar */}
-      <div className="flex items-center justify-between gap-3 p-2 rounded-2xl glass-panel border border-white/10 flex-shrink-0">
+      <div className="flex items-center justify-between gap-3 p-2 rounded-2xl glass-panel border border-slate-200 bg-white flex-shrink-0">
         {/* Scrollable Tab Navigation */}
         <div className="flex items-center gap-1.5 overflow-x-auto custom-scrollbar py-1 px-1">
           {tabs.map((tab) => {
@@ -117,8 +115,8 @@ export const DigitalBoardPage: React.FC = () => {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-3.5 py-2.5 rounded-xl transition-all font-bold text-xs flex-shrink-0 touch-target ${
                   isActive
-                    ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-neon-blue'
-                    : 'glass-card border border-white/5 text-slate-300 hover:text-white hover:bg-white/10'
+                    ? 'bg-gradient-to-r from-indigo-600 to-sky-600 text-white shadow-md'
+                    : 'glass-card border border-slate-200 text-slate-700 hover:text-slate-900 hover:bg-slate-50'
                 }`}
               >
                 <Icon className={`w-4 h-4 ${isActive ? 'text-white' : tab.color}`} />
@@ -133,8 +131,8 @@ export const DigitalBoardPage: React.FC = () => {
           onClick={() => setSplitView(!splitView)}
           className={`hidden xl:flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold transition flex-shrink-0 touch-target ${
             splitView
-              ? 'bg-purple-500 text-white shadow-neon-purple'
-              : 'glass-card border border-white/10 text-slate-300 hover:text-white'
+              ? 'bg-purple-600 text-white shadow-md'
+              : 'glass-card border border-slate-200 text-slate-700 hover:text-slate-900'
           }`}
           title="Toggle Split View Mode (Whiteboard + Module side-by-side)"
         >
@@ -149,10 +147,10 @@ export const DigitalBoardPage: React.FC = () => {
           <div className="h-full w-full">{renderModuleContent(activeTab)}</div>
         ) : (
           <div className="grid grid-cols-2 gap-4 h-full w-full">
-            <div className="h-full rounded-3xl overflow-hidden border border-cyan-500/30">
+            <div className="h-full rounded-3xl overflow-hidden border border-indigo-200 shadow-sm">
               <WhiteboardCanvas />
             </div>
-            <div className="h-full overflow-y-auto p-4 glass-panel rounded-3xl border border-white/10">
+            <div className="h-full overflow-y-auto p-4 glass-panel rounded-3xl border border-slate-200 bg-white">
               {activeTab === 'whiteboard' ? <TodayLessonModule /> : renderModuleContent(activeTab)}
             </div>
           </div>

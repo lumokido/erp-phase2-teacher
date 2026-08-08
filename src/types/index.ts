@@ -172,8 +172,10 @@ export interface RecordingSession {
   thumbnailUrl?: string;
 }
 
+export type UserRole = 'ADMIN' | 'TEACHER';
+
 export interface UserProfile {
-  id: string;
+  id: string | number;
   name: string;
   title: string;
   email: string;
@@ -181,4 +183,50 @@ export interface UserProfile {
   department: string;
   employeeId: string;
   assignedClasses: string[];
+  role?: UserRole;
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  specialization?: string;
+  joiningDate?: string;
+  homeRoomClassId?: number;
 }
+
+export interface TeacherAssignment {
+  classId: number;
+  subjectId: number;
+  academicYear: string;
+}
+
+export interface Teacher {
+  id: string | number;
+  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  dateOfBirth: string;
+  employeeId: string;
+  designation: string;
+  specialization: string;
+  joiningDate: string;
+  homeRoomClassId: number;
+  assignments?: TeacherAssignment[];
+  password?: string;
+  role?: UserRole;
+  avatar?: string;
+}
+
+export interface AuthLoginPayload {
+  usernameOrEmail: string;
+  password?: string;
+}
+
+export interface AuthResponse {
+  accessToken: string;
+  tokenType?: string;
+  user?: UserProfile | Teacher;
+  role?: UserRole;
+}
+

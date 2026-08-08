@@ -11,6 +11,7 @@ import { FloatingTimer } from './components/common/FloatingTimer';
 // Pages
 import { LoginPage } from './pages/LoginPage';
 import { DashboardPage } from './pages/DashboardPage';
+import { TeachersPage } from './pages/TeachersPage';
 import { TimetablePage } from './pages/TimetablePage';
 import { DigitalBoardPage } from './pages/DigitalBoardPage';
 import { HomeworkPage } from './pages/HomeworkPage';
@@ -37,7 +38,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
 
   return (
-    <div className="flex h-screen w-screen bg-dark-base overflow-hidden text-slate-100 select-none">
+    <div className="flex h-screen w-screen bg-slate-50 overflow-hidden text-slate-800 select-none">
       <Sidebar />
       <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
         <Header
@@ -72,6 +73,7 @@ export const App: React.FC = () => {
                 <Layout>
                   <Routes>
                     <Route path="/dashboard" element={<DashboardPage />} />
+                    <Route path="/teachers" element={<TeachersPage />} />
                     <Route path="/timetable" element={<TimetablePage />} />
                     <Route path="/board" element={<DigitalBoardPage />} />
                     <Route path="/homework" element={<HomeworkPage />} />
@@ -82,7 +84,7 @@ export const App: React.FC = () => {
                     <Route path="/announcements" element={<AnnouncementsPage />} />
                     <Route path="/profile" element={<ProfilePage />} />
                     <Route path="/settings" element={<SettingsPage />} />
-                    <Route path="*" element={<Navigate to="/board" replace />} />
+                    <Route path="*" element={<Navigate to="/dashboard" replace />} />
                   </Routes>
                 </Layout>
               ) : (
